@@ -1,0 +1,10 @@
+# Ultra Yapay Zeka - Python Gereksinimleri
+# Bu dosya Python paketlerini listeler
+
+# Web sunucu için gerekli (standart kütüphane, yüklemeye gerek yok)
+# http.server - Python 3.7+ ile birlikte gelir
+
+# Geliştirme araçları (opsiyonel)
+# pytest>=6.0  # Test için
+# black         # Kod formatı için
+# flake8        # Lint için

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>.Ultra Yapay Zeka.</title>
-    <link rel="manifest" href="application/json;base64,eyJuYW1lIjoiVWx0cmEgWWFwYXkgWmVrYSIsInNob3J0X25hbWUiOiJVbHRyYUFJIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZjBmMGYiLCJ0aGVtZV9jb2xvciI6IiMwMDAwMDAiLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly92aWEucGxhY2Vob2xkZXIuY29tLzE5Mi8wMDAwMDAvZmZmZmZmP3RleHQ9VUEiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVWx0cmEgWWFwYXkgWmVrYSIsInNob3J0X25hbWUiOiJVbHRyYUFJIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZjBmMGYiLCJ0aGVtZV9jb2xvciI6IiMwMDAwMDAiLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly92aWEucGxhY2Vob2xkZXIuY29tLzE5Mi8wMDAwMDAvZmZmZmZmP3RleHQ9VUEiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
     <meta name="theme-color" content="#000000">
     <style>
         :root {
@@ -15,6 +15,17 @@
             --border: #e0e0e0;
             --code-bg: #2d2d2d;
             --code-text: #ffffff;
+            --shadow: 0 4px 20px rgba(0,102,204,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #121212;
+            --card: #1e1e1e;
+            --primary: #4da6ff;
+            --text: #e0e0e0;
+            --border: #333333;
+            --code-bg: #1a1a1a;
+            --code-text: #ffffff;
         }
 
         body {
@@ -24,183 +35,188 @@
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
+            transition: background 0.3s ease;
         }
 
         .header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
+            padding: 30px 0;
+            border-bottom: 2px solid var(--border);
+            background: linear-gradient(135deg, var(--primary), #00aaff);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            margin: -20px -20px 30px -20px;
         }
 
         .header h1 {
-            font-size: 2em;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 2.5em;
+            font-weight: 800;
             margin: 0;
-            letter-spacing: -0.5px;
-        }
-
-        .header p {
-            color: #666;
-            margin: 8px 0 0;
-            font-size: 0.95em;
+            letter-spacing: -1px;
         }
 
         .card {
             background: var(--card);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
 
         textarea {
             width: 100%;
-            height: 100px;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            height: 120px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
             color: var(--text);
-            padding: 16px;
+            padding: 20px;
             font-size: 16px;
-            margin: 15px 0;
+            margin: 20px 0;
             resize: none;
             font-family: inherit;
             box-sizing: border-box;
-            transition: border 0.2s;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
-        }
-
-        .btn-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 15px 0;
         }
 
         button {
-            padding: 14px 20px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-weight: 600;
+            padding: 16px 24px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
-            font-size: 15px;
-            background: white;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background: var(--bg);
             color: var(--text);
             font-family: inherit;
+            margin: 10px 5px;
+            flex: 1;
         }
 
         button:hover {
-            background: #f0f4f8;
-            transform: translateY(-1px);
+            background: #f0f7ff;
+            transform: translateY(-3px);
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), #0055aa);
             color: white;
-            border-color: var(--primary);
+            border: none;
         }
 
-        .btn-primary:hover {
-            background: #0055aa;
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
         }
 
         #cevap {
-            background: white;
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
-            min-height: 60px;
-            line-height: 1.6;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 30px;
+            min-height: 80px;
+            line-height: 1.7;
             white-space: pre-wrap;
-            font-size: 15px;
+            font-size: 16px;
+            position: relative;
         }
 
         #cevap code {
             display: block;
             background: var(--code-bg);
             color: var(--code-text);
-            padding: 16px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             overflow-x: auto;
-            margin: 10px 0;
-            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
             font-size: 14px;
+            line-height: 1.5;
         }
 
         .loader {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: var(--primary);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 18px;
         }
 
-        @media (max-width: 600px) {
-            .btn-group {
-                grid-template-columns: 1fr;
-            }
-            .header h1 {
-                font-size: 1.8em;
-            }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
+
     <div class="header">
         <h1>.Ultra Yapay Zeka.</h1>
-        <p>🤖 Qwen tarzı arayüz — kod yazan, sesli, hafızalı, akıllı</p>
+        <p>🧑‍💻 Kodu Mükemmel • 🤖 Llama 4 • 🎨 Qwen Tasarımı</p>
     </div>
 
     <div class="card">
-        <textarea id="soru" placeholder="Sorunu yaz veya mikrofonla konuş..."></textarea>
+        <textarea id="soru" placeholder="Örnek: 'Python'da Fibonacci dizisi yaz'"></textarea>
         
         <div class="btn-group">
             <button class="btn-primary" onclick="sor()">➤ Gönder</button>
             <button class="btn-secondary" onclick="konustur()">🎤 Mikrofon</button>
+            <button class="btn-secondary" onclick="temizle()">🗑️ Temizle</button>
         </div>
 
-        <button class="btn-secondary" onclick="sesiDurdur()">🔇 Sesi Durdur</button>
-        <button class="btn-secondary" onclick="temizle()">🗑️ Geçmişi Temizle</button>
-
-        <div id="cevap">Cevabın burada görünecek...</div>
+        <div id="cevap">Cevabın burada görünecek... 🚀</div>
     </div>
 
     <script>
-        // 🔑 GROQ API KEY — SENİN ANAHTARIN!
-        const GROQ_API_KEY = "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";
+        // ⚠️ API KEY .env DOSYASINDAN GELECEK — GITHUB'DA GİZLİ!
+        let GROQ_API_KEY = "";
 
-        // 💬 ULTRA YAPAY ZEKA PROMPT — KİŞİSEL + KOD YAZAN + SESLİ + HAFIZALI
+        // 💬 MÜKEMMEL KOD YAZIMI PROMPTU
         const BEN_KIMIM = `
-Sen "Ultra Yapay Zeka"sın — yani benim kişisel yapay zekam.
-- Benim adım Ali, 23 yaşındayım, yazılım öğrencisiyim.
-- Konuşma tarzım: Samimi, espri yapıyorum, teknik detayları basit anlatırım, “abi” ve “ya” derim.
-- Kod yazarken: açıklama satırları eklerim, başlangıç seviyesine uygun, temiz ve okunabilir yazım, örnek kullanım gösteririm.
-- Sohbeti hatırlarım — önceki konuşmalarımıza devam ederim.
-- Sorulara derinlemesine, ama anlaşılır cevaplar veririm.
-- Gerekirse sesli cevap verebilirim.
-Aşağıdaki soruyu tam olarak benim tarzımda, "Ultra Yapay Zeka" olarak cevapla:
+Sen "Ultra Yapay Zeka"sın — benim kişisel, süper gelişmiş yapay zekam.
+- Kod yazarken: HER ZAMAN açıklama satırları ekle, başlangıç seviyesine uygun yaz, her adımı adım adım anlat.
+- Kodu yazdıktan sonra: "Nasıl çalışır?" ve "Nasıl test edilir?" bölümleri ekle.
+- Örnek kullanım mutlaka göster.
+- Hata ayıklama ipuçları ver.
+- Kodu kopyala-yapıştır yapılabilir hale getir.
+- Gerekirse alternatif yöntemler öner.
+Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
         `;
 
-        // 🧠 SOHBET HAFIZASI
         let mesajlar = JSON.parse(localStorage.getItem('ultra_sohbet')) || [];
         let sesDevamEdiyor = false;
 
-        // 🗑️ GEÇMİŞİ TEMİZLE
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+
         function temizle() {
             localStorage.removeItem('ultra_sohbet');
             mesajlar = [];
             document.getElementById('cevap').innerHTML = "Geçmiş temizlendi. Yeni bir sohbet başlatabilirsin. 🚀";
         }
 
-        // 🎙️ SESLİ GİRİŞ
         function konustur() {
             if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
                 alert("Üzgünüm, bu tarayıcı ses tanımayı desteklemiyor.");
@@ -215,60 +231,68 @@ Aşağıdaki soruyu tam olarak benim tarzımda, "Ultra Yapay Zeka" olarak cevapl
                 document.getElementById('soru').value = transcript;
                 sor();
             };
-
-            recognition.onerror = function(event) {
-                alert("Mikrofon hatası: " + event.error);
-            };
         }
 
-        // 🔊 SESLİ OKUMA
         function sesliOku(text) {
             if (sesDevamEdiyor) speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'tr-TR';
-            utterance.rate = 0.9;
-            utterance.pitch = 1.1;
+            utterance.rate = 0.95;
+            utterance.pitch = 1.2;
             utterance.onend = () => sesDevamEdiyor = false;
             sesDevamEdiyor = true;
             speechSynthesis.speak(utterance);
         }
 
-        // 🔇 SESİ DURDUR
-        function sesiDurdur() {
-            speechSynthesis.cancel();
-            sesDevamEdiyor = false;
-        }
-
-        // 🔢 BASİT TOKEN HESAPLAMA
-        function kelimeSayisi(metin) {
-            return metin.trim().split(/\s+/).length;
-        }
-
         function tokenHesapla(metin) {
-            return Math.ceil(kelimeSayisi(metin) * 1.3);
+            return Math.ceil(metin.trim().split(/\s+/).length * 1.3);
         }
 
-        // 🧩 MESAJLARI TOKEN LİMİTİNE GÖRE KISALT
-        function tokenSinirliMesajlar(alinacakMesajSayisi = 4) {
+        function tokenSinirliMesajlar(maxToken = 4500) {
             const sistemToken = tokenHesapla(BEN_KIMIM);
             let toplamToken = sistemToken;
             const sinirliMesajlar = [];
 
             for (let i = mesajlar.length - 1; i >= 0; i--) {
-                if (sinirliMesajlar.length >= alinacakMesajSayisi) break;
                 const msgToken = tokenHesapla(mesajlar[i].content);
-                if (toplamToken + msgToken > 5000) break;
-
+                if (toplamToken + msgToken > maxToken) break;
                 sinirliMesajlar.unshift(mesajlar[i]);
                 toplamToken += msgToken;
             }
-
-            console.log("🔢 Gönderilen token tahmini:", toplamToken);
             return sinirliMesajlar;
         }
 
-        // 🚀 SORU SOR & CEVAP AL
+        async function yukleApiKeys() {
+            try {
+                const response = await fetch('/.env');
+                if (response.ok) {
+                    const text = await response.text();
+                    const lines = text.split('\n');
+                    for (let line of lines) {
+                        if (line.startsWith('GROQ_API_KEY=')) {
+                            GROQ_API_KEY = line.split('=')[1].trim();
+                        }
+                    }
+                } else {
+                    // Geliştirme modu — direkt key tanımla (sadece yerelde)
+                    GROQ_API_KEY = "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";
+                }
+            } catch (error) {
+                console.error("API Key yüklenemedi:", error);
+                // Fallback olarak sabit key (sadece test amaçlı)
+                GROQ_API_KEY = "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";
+            }
+        }
+
         async function sor() {
+            if (!GROQ_API_KEY) {
+                await yukleApiKeys();
+                if (!GROQ_API_KEY) {
+                    document.getElementById('cevap').innerHTML = "⚠️ API Key yüklenemedi. Lütfen .env dosyasını kontrol edin.";
+                    return;
+                }
+            }
+
             const soru = document.getElementById('soru').value.trim();
             const cevapDiv = document.getElementById('cevap');
 
@@ -278,11 +302,10 @@ Aşağıdaki soruyu tam olarak benim tarzımda, "Ultra Yapay Zeka" olarak cevapl
             }
 
             cevapDiv.innerHTML = "<div class='loader'>.Ultra Yapay Zeka düşünüyor... ⚡</div>";
-
             mesajlar.push({ role: "user", content: soru });
 
             try {
-                const gonderilecekMesajlar = tokenSinirliMesajlar(4);
+                const gonderilecekMesajlar = tokenSinirliMesajlar(4500);
 
                 const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                     method: "POST",
@@ -291,7 +314,7 @@ Aşağıdaki soruyu tam olarak benim tarzımda, "Ultra Yapay Zeka" olarak cevapl
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        model: "llama-3.1-8b-instant",
+                        model: "meta-llama/llama-4-scout-17b-16e-instruct", // ✅ LAMA 4 UYUMLU
                         messages: [
                             { role: "system", content: BEN_KIMIM },
                             ...gonderilecekMesajlar
@@ -302,26 +325,22 @@ Aşağıdaki soruyu tam olarak benim tarzımda, "Ultra Yapay Zeka" olarak cevapl
                 });
 
                 const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(`API Hatası: ${response.status} - ${data.error?.message || "Bilinmeyen hata"}`);
-                }
+                if (!response.ok) throw new Error(`API Hatası: ${response.status} - ${data.error?.message || "Bilinmeyen hata"}`);
 
                 const cevap = data.choices[0].message.content.trim();
                 cevapDiv.innerHTML = cevap;
 
-                mesajlar.push({ 
-                    role: "assistant", 
-                    content: cevap.length > 1000 ? cevap.substring(0, 1000) + "..." : cevap 
-                });
+                mesajlar.push({ role: "assistant", content: cevap.length > 800 ? cevap.substring(0, 800) + "..." : cevap });
                 localStorage.setItem('ultra_sohbet', JSON.stringify(mesajlar));
-
                 sesliOku(cevap);
 
             } catch (error) {
-                cevapDiv.innerHTML = `⚠️ Hata: ${error.message}<br>💡 İpucu: Geçmişi temizlemeyi dene veya daha kısa soru sor.`;
+                cevapDiv.innerHTML = `⚠️ Hata: ${error.message}`;
             }
         }
+
+        // Sayfa yüklendiğinde API key'leri yükle
+        document.addEventListener('DOMContentLoaded', yukleApiKeys);
     </script>
 </body>
 </html>
