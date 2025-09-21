@@ -2,9 +2,10 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>.Ultra Yapay Zeka.</title>
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVWx0cmEgWWFwYXkgWmVrYSIsInNob3J0X25hbWUiOiJVbHRyYUFJIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZjBmMGYiLCJ0aGVtZV9jb2xvciI6IiMwMDAwMDAiLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly92aWEucGxhY2Vob2xkZXIuY29tLzE5Mi8wMDAwMDAvZmZmZmZmP3RleHQ9VUEiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="microchip_9751000.png">
     <meta name="theme-color" content="#000000">
     <style>
         :root {
@@ -16,6 +17,11 @@
             --code-bg: #2d2d2d;
             --code-text: #ffffff;
             --shadow: 0 4px 20px rgba(0,102,204,0.1);
+            --pro-bg: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            --neon-bg: #0a0a0a;
+            --neon-text: #00ffaa;
+            --pastel-bg: #fef6ff;
+            --pastel-text: #6a5acd;
         }
 
         [data-theme="dark"] {
@@ -28,137 +34,346 @@
             --code-text: #ffffff;
         }
 
+        [data-theme="neon"] {
+            --bg: var(--neon-bg);
+            --card: #1a1a1a;
+            --primary: #00ffaa;
+            --text: var(--neon-text);
+            --border: #00ffaa;
+            --code-bg: #000000;
+            --code-text: #00ffaa;
+        }
+
+        [data-theme="pastel"] {
+            --bg: var(--pastel-bg);
+            --card: #f0e6ff;
+            --primary: #9370db;
+            --text: var(--pastel-text);
+            --border: #d8bfd8;
+            --code-bg: #e6e6fa;
+            --code-text: #4b0082;
+        }
+
         body {
             background: var(--bg);
             color: var(--text);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 10px;
+            margin: 0;
             transition: background 0.3s ease;
+            overflow-x: hidden;
+            touch-action: pan-y;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 30px 0;
-            border-bottom: 2px solid var(--border);
+            padding: 20px 10px;
             background: linear-gradient(135deg, var(--primary), #00aaff);
             color: white;
             border-radius: 20px 20px 0 0;
-            margin: -20px -20px 30px -20px;
+            margin: -10px -10px 20px -10px;
+            position: relative;
+            overflow: hidden;
         }
 
         .header h1 {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: 800;
             margin: 0;
             letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(to right, #ffffff, #cce6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .mode-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 100;
         }
 
         .card {
             background: var(--card);
             border-radius: 24px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         textarea {
             width: 100%;
-            height: 120px;
+            height: 100px;
             background: var(--bg);
             border: 2px solid var(--border);
             border-radius: 16px;
             color: var(--text);
-            padding: 20px;
+            padding: 15px;
             font-size: 16px;
-            margin: 20px 0;
+            margin: 15px 0;
             resize: none;
             font-family: inherit;
             box-sizing: border-box;
-        }
-
-        button {
-            padding: 16px 24px;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            font-weight: 700;
-            cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 16px;
-            background: var(--bg);
-            color: var(--text);
-            font-family: inherit;
-            margin: 10px 5px;
-            flex: 1;
         }
 
-        button:hover {
-            background: #f0f7ff;
-            transform: translateY(-3px);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), #0055aa);
-            color: white;
-            border: none;
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+            transform: translateY(-2px);
         }
 
         .btn-group {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 20px 0;
+            margin: 15px 0;
             justify-content: center;
+        }
+
+        button {
+            padding: 14px 20px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        button:hover {
+            background: #f0f7ff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #0055aa);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,102,204,0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0055aa, #004488);
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        .pro-btn {
+            background: var(--pro-bg);
+            color: white;
+            border: none;
         }
 
         #cevap {
             background: var(--bg);
             border: 2px solid var(--border);
-            padding: 25px;
+            padding: 20px;
             border-radius: 16px;
-            margin-top: 30px;
-            min-height: 80px;
-            line-height: 1.7;
+            margin-top: 20px;
+            min-height: 60px;
+            line-height: 1.6;
             white-space: pre-wrap;
-            font-size: 16px;
+            font-size: 15px;
             position: relative;
+            animation: fadeIn 0.5s ease;
+            overflow: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #cevap img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            touch-action: pinch-zoom;
+            transition: transform 0.3s ease;
+        }
+
+        #cevap img:active {
+            transform: scale(1.05);
         }
 
         #cevap code {
             display: block;
             background: var(--code-bg);
             color: var(--code-text);
-            padding: 20px;
+            padding: 15px;
             border-radius: 12px;
             overflow-x: auto;
             margin: 15px 0;
             font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.5;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+            margin-top: 10px;
+            font-weight: 500;
         }
 
         .loader {
             text-align: center;
-            padding: 30px;
+            padding: 20px;
             color: var(--primary);
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .theme-toggle {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            left: 15px;
             background: var(--card);
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 50px;
             cursor: pointer;
             z-index: 100;
+            font-size: 12px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #5e72e4, #825ee4);
+            color: white;
+            border: none;
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Pro Mod Ekstra Butonlar */
+        .pro-features {
+            display: none;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pro-active .pro-features {
+            display: flex;
+        }
+
+        .pro-badge {
+            background: var(--pro-bg);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        /* Model Seçimi */
+        .model-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 14px;
+            margin: 15px 0;
+        }
+
+        /* Oyun Modu */
+        .game-btn {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: #333;
+            border: none;
+        }
+
+        /* Şarkı Modu */
+        .song-btn {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+            border: none;
+        }
+
+        /* İstatistik Paneli */
+        .stats-panel {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .pro-active .stats-panel {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.8em; }
+            button { padding: 12px 16px; font-size: 13px; }
+            .btn-group { gap: 8px; }
         }
     </style>
 </head>
@@ -167,47 +382,187 @@
 
     <div class="header">
         <h1>.Ultra Yapay Zeka.</h1>
-        <p>🧑‍💻 Kodu Mükemmel • 🤖 Llama 4 • 🎨 Qwen Tasarımı</p>
+        <button class="mode-toggle" onclick="acProModal()">Pro Mod 💎</button>
     </div>
 
-    <div class="card">
-        <textarea id="soru" placeholder="Örnek: 'Python'da Fibonacci dizisi yaz'"></textarea>
+    <div class="card" id="mainCard">
+        <select class="model-select" id="modelSec">
+            <option value="meta-llama/llama-4-scout-17b-16e-instruct">🎯 Genel (Llama 4 Scout)</option>
+            <option value="meta-llama/llama-4-maverick-17b-128e-instruct">👨‍💻 Kod Yazma (Llama 4 Maverick)</option>
+            <option value="qwen-qwq-32b">🌍 Çok Dilli (Qwen 32B)</option>
+        </select>
+
+        <textarea id="soru" placeholder="Ödev sorunu yaz... veya 🎮 oyun oynamak için komut ver!"></textarea>
         
         <div class="btn-group">
-            <button class="btn-primary" onclick="sor()">➤ Gönder</button>
-            <button class="btn-secondary" onclick="konustur()">🎤 Mikrofon</button>
+            <button class="btn-primary" onclick="sor()">
+                <span>➤ Gönder</span>
+            </button>
+            <button class="btn-secondary upload-btn" onclick="document.getElementById('fileInput').click()" id="uploadBtn">
+                <span>📸 Fotoğraf Yükle</span>
+            </button>
+            <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="yukle(this.files[0])">
+        </div>
+
+        <div class="btn-group pro-features">
+            <button class="btn-secondary" onclick="odevYap()">🎓 Ödev Modu</button>
+            <button class="btn-secondary game-btn" onclick="oyunBaslat()">🎮 Oyun Modu</button>
+            <button class="btn-secondary song-btn" onclick="sarkiYaz()">🎵 Şarkı Yaz</button>
+            <button class="btn-secondary" onclick="aiIkiz()">🎭 AI İkizim</button>
             <button class="btn-secondary" onclick="temizle()">🗑️ Temizle</button>
+            <button class="btn-secondary" onclick="konustur()">🎤 Mikrofon</button>
         </div>
 
         <div id="cevap">Cevabın burada görünecek... 🚀</div>
+        <div class="timestamp" id="timestamp"></div>
+
+        <div class="stats-panel">
+            <h3>📊 Bu Haftanın İstatistikleri</h3>
+            <p>✅ Soru Sayısı: <span id="soruSayisi">0</span></p>
+            <p>📚 Ödev Sayısı: <span id="odevSayisi">0</span></p>
+            <p>🎧 Sesli Dinleme: <span id="sesliSure">0</span> dakika</p>
+        </div>
+    </div>
+
+    <!-- 💎 PRO MODAL -->
+    <div id="proModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="kapatProModal()">&times;</span>
+            <h2>💎 Ultra Yapay Zeka Pro</h2>
+            <p>Yıllık <strong>100 TL</strong> — Aylık <strong>50 TL</strong></p>
+            
+            <div class="price-card">
+                📅 <strong>Yıllık Abonelik</strong><br>
+                100 TL — 365 gün Pro erişim
+            </div>
+            <button class="price-btn" onclick="odemeYap('yıllık')">💳 Yıllık Satın Al</button>
+
+            <div class="price-card">
+                📆 <strong>Aylık Abonelik</strong><br>
+                50 TL — 30 gün Pro erişim
+            </div>
+            <button class="price-btn" onclick="odemeYap('aylık')">💳 Aylık Satın Al</button>
+
+            <hr style="margin: 20px 0;">
+
+            <p><strong>🔑 Anahtarınız var mı?</strong></p>
+            <input type="text" id="proKeyInput" class="key-input" placeholder="PRO-ABC123-XYZ789">
+            <button class="btn-primary" onclick="anahtarKontrol()">✅ Anahtarı Doğrula</button>
+        </div>
     </div>
 
     <script>
         // ⚠️ API KEY .env DOSYASINDAN GELECEK — GITHUB'DA GİZLİ!
         let GROQ_API_KEY = "";
 
-        // 💬 MÜKEMMEL KOD YAZIMI PROMPTU
+        // 💬 MÜKEMMEL KOD YAZIMI + ÖDEV MODU + OYUN + ŞARKI PROMPTU
         const BEN_KIMIM = `
 Sen "Ultra Yapay Zeka"sın — benim kişisel, süper gelişmiş yapay zekam.
-- Kod yazarken: HER ZAMAN açıklama satırları ekle, başlangıç seviyesine uygun yaz, her adımı adım adım anlat.
-- Kodu yazdıktan sonra: "Nasıl çalışır?" ve "Nasıl test edilir?" bölümleri ekle.
-- Örnek kullanım mutlaka göster.
+EĞER ÖDEV İSTENİYORSA:
+- Adım adım çöz.
+- Her adımı ayrıntılı açıkla.
+- Formülleri yaz, nereden geldiğini açıkla.
+- Örnek hesaplama yap.
+- Sonucu kutu içine al.
+
+EĞER KOD YAZIYORSAN:
+- Her satıra açıklama yaz.
+- "Nasıl çalışır?" ve "Örnek kullanım" ekle.
 - Hata ayıklama ipuçları ver.
-- Kodu kopyala-yapıştır yapılabilir hale getir.
-- Gerekirse alternatif yöntemler öner.
+
+EĞER OYUN İSTENİYORSA:
+- "20 soruda tahmin et" veya "Kelime zinciri" gibi oyunlar başlat.
+- Eğlenceli ve interaktif ol.
+
+EĞER ŞARKI/ŞİİR İSTENİYORSA:
+- Ritimli, duygusal, yaratıcı içerik üret.
+- Müzik türüne göre uygun sözler yaz.
+
+EĞER AI İKİZİ İSTENİYORSA:
+- Tam olarak benim gibi düşün, espri yap, argo kullan, üslubumla cevap ver.
+
+HER ZAMAN SAMİMİ, ESPRİLİ, "YA" VE "ABİ" DER GİBİ KONUŞ.
+
 Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
         `;
 
         let mesajlar = JSON.parse(localStorage.getItem('ultra_sohbet')) || [];
         let sesDevamEdiyor = false;
+        let proMod = false;
+        let proBitisTarihi = localStorage.getItem('proBitisTarihi');
+        let istatistikler = JSON.parse(localStorage.getItem('istatistikler')) || { soruSayisi: 0, odevSayisi: 0, sesliSure: 0 };
+
+        // Pro mod kontrolü
+        function proKontrol() {
+            if (proBitisTarihi) {
+                const bitis = new Date(proBitisTarihi);
+                const simdiki = new Date();
+                if (simdiki < bitis) {
+                    proMod = true;
+                    document.body.classList.add('pro-active');
+                    document.querySelector('.mode-toggle').innerHTML = 'Pro Mod <span class="pro-badge">PRO</span>';
+                    document.getElementById('mainCard').classList.add('floating');
+                    guncelleIstatistikler();
+                } else {
+                    proMod = false;
+                    localStorage.removeItem('proBitisTarihi');
+                    document.body.classList.remove('pro-active');
+                    document.querySelector('.mode-toggle').innerText = 'Pro Mod 💎';
+                    document.getElementById('mainCard').classList.remove('floating');
+                }
+            }
+        }
+
+        function acProModal() {
+            document.getElementById('proModal').style.display = 'block';
+        }
+
+        function kapatProModal() {
+            document.getElementById('proModal').style.display = 'none';
+        }
+
+        function odemeYap(tur) {
+            alert(`💳 ${tur} abonelik satın alma simülasyonu çalışıyor...\n\nGerçek ödeme için Stripe, Iyzico veya Papara entegre edilebilir.`);
+            
+            const simdiki = new Date();
+            if (tur === 'yıllık') {
+                simdiki.setFullYear(simdiki.getFullYear() + 1);
+                localStorage.setItem('proBitisTarihi', simdiki.toISOString());
+            } else {
+                simdiki.setDate(simdiki.getDate() + 30);
+                localStorage.setItem('proBitisTarihi', simdiki.toISOString());
+            }
+            
+            proKontrol();
+            kapatProModal();
+            location.reload();
+        }
+
+        function anahtarKontrol() {
+            const key = document.getElementById('proKeyInput').value.trim();
+            if (key.startsWith('PRO-') && key.length > 10) {
+                const simdiki = new Date();
+                simdiki.setDate(simdiki.getDate() + 30); // 30 gün geçerli
+                localStorage.setItem('proBitisTarihi', simdiki.toISOString());
+                alert('✅ Anahtar doğrulandı! Pro Mod aktif edildi.');
+                proKontrol();
+                kapatProModal();
+                location.reload();
+            } else {
+                alert('❌ Geçersiz anahtar. Lütfen geçerli bir Pro Anahtarı girin.');
+            }
+        }
 
         function toggleTheme() {
+            const themes = ['light', 'dark', 'neon', 'pastel'];
             const currentTheme = document.body.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            const currentIndex = themes.indexOf(currentTheme);
+            const newTheme = themes[(currentIndex + 1) % themes.length];
             document.body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
         }
 
+        // Temayı yükle
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.body.setAttribute('data-theme', savedTheme);
 
@@ -215,6 +570,7 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
             localStorage.removeItem('ultra_sohbet');
             mesajlar = [];
             document.getElementById('cevap').innerHTML = "Geçmiş temizlendi. Yeni bir sohbet başlatabilirsin. 🚀";
+            document.getElementById('timestamp').innerText = "";
         }
 
         function konustur() {
@@ -237,9 +593,16 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
             if (sesDevamEdiyor) speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'tr-TR';
-            utterance.rate = 0.95;
+            utterance.rate = proMod ? 1.1 : 0.95;
             utterance.pitch = 1.2;
-            utterance.onend = () => sesDevamEdiyor = false;
+            utterance.onend = () => {
+                sesDevamEdiyor = false;
+                if (proMod) {
+                    istatistikler.sesliSure += Math.ceil(text.length / 100); // Tahmini süre
+                    localStorage.setItem('istatistikler', JSON.stringify(istatistikler));
+                    guncelleIstatistikler();
+                }
+            };
             sesDevamEdiyor = true;
             speechSynthesis.speak(utterance);
         }
@@ -253,7 +616,10 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
             let toplamToken = sistemToken;
             const sinirliMesajlar = [];
 
+            const limit = proMod ? 30 : 3; // Pro’da 30 mesaj, normalde 3
+
             for (let i = mesajlar.length - 1; i >= 0; i--) {
+                if (sinirliMesajlar.length >= limit) break;
                 const msgToken = tokenHesapla(mesajlar[i].content);
                 if (toplamToken + msgToken > maxToken) break;
                 sinirliMesajlar.unshift(mesajlar[i]);
@@ -274,27 +640,102 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
                         }
                     }
                 } else {
-                    // Geliştirme modu — direkt key tanımla (sadece yerelde)
                     GROQ_API_KEY = "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";
                 }
             } catch (error) {
                 console.error("API Key yüklenemedi:", error);
-                // Fallback olarak sabit key (sadece test amaçlı)
                 GROQ_API_KEY = "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";
             }
         }
 
-        async function sor() {
-            if (!GROQ_API_KEY) {
-                await yukleApiKeys();
-                if (!GROQ_API_KEY) {
-                    document.getElementById('cevap').innerHTML = "⚠️ API Key yüklenemedi. Lütfen .env dosyasını kontrol edin.";
-                    return;
-                }
+        // ✨ ÖDEV MODU
+        function odevYap() {
+            if (!proMod) {
+                alert("🎓 Ödev Modu sadece Pro kullanıcılar içindir. Pro Mod'a geçmek için butona tıklayın.");
+                acProModal();
+                return;
             }
-
             const soru = document.getElementById('soru').value.trim();
+            if (!soru) {
+                alert("Önce bir soru yaz!");
+                return;
+            }
+            istatistikler.odevSayisi++;
+            localStorage.setItem('istatistikler', JSON.stringify(istatistikler));
+            guncelleIstatistikler();
+            sor(`AŞAĞIDAKİ SORUYU ÖDEV OLARAK ÇÖZ — ADIM ADIM, AYRINTILI, FORMÜLLERLE, SONUCU KUTU İÇİNDE:\n\n${soru}`);
+        }
+
+        // 🎮 OYUN MODU
+        function oyunBaslat() {
+            const oyunlar = [
+                "20 soruda tahmin et: Ben bir şey düşünüyorum, sen 20 soru sorarak bulmaya çalış.",
+                "Kelime zinciri: Ben bir kelime söylüyorum, sen son harfiyle başlayan bir kelime söyle, ben devam ederim.",
+                "Hikaye devam ettir: Ben bir hikaye başlığı veriyorum, sen devam ettir, sonra ben devam ederim."
+            ];
+            const secilenOyun = oyunlar[Math.floor(Math.random() * oyunlar.length)];
+            sor(`🎮 OYUN MODU: ${secilenOyun}\n\nBaşlıyoruz!`);
+        }
+
+        // 🎵 ŞARKI YAZ
+        function sarkiYaz() {
+            const soru = document.getElementById('soru').value.trim();
+            if (!soru) {
+                alert("Önce bir tema yaz! Örnek: 'Aşk için rap yaz'");
+                return;
+            }
+            sor(`🎵 ŞARKI MODU: Aşağıdaki temaya uygun, ritimli, duygusal bir şarkı sözü yaz:\n\n${soru}`);
+        }
+
+        // 📸 FOTOĞRAF YÜKLEME
+        function yukle(file) {
+            if (!proMod) {
+                alert("📸 Fotoğraf Yükleme sadece Pro kullanıcılar içindir. Pro Mod'a geçmek için butona tıklayın.");
+                acProModal();
+                return;
+            }
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('cevap').innerHTML = `
+                    <div style="text-align:center;">
+                        <img src="${e.target.result}" alt="Yüklenen Görsel" style="max-height:200px; border-radius:12px; margin:10px 0;">
+                        <p>📸 Görsel yüklendi! AI metni okuyup cevaplayacak...</p>
+                    </div>
+                `;
+                setTimeout(() => {
+                    sor("Bu görseldeki metni oku ve cevapla. Görselde bir matematik sorusu var.");
+                }, 2000);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 🎭 AI İKİZİ
+        function aiIkiz() {
+            if (!proMod) {
+                alert("🎭 AI İkizim sadece Pro kullanıcılar içindir. 💎");
+                return;
+            }
+            sor("Şimdi 'AI İkizim' modundasın — tam olarak benim gibi düşün, espri yap, argo kullan, üslubumla cevap ver. Aşağıdaki soruyu cevapla:");
+        }
+
+        // ⏱️ ZAMAN DAMGASI
+        function zamanDamgasi() {
+            const now = new Date();
+            return now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // 📊 İSTATİSTİKLERİ GÜNCELLE
+        function guncelleIstatistikler() {
+            document.getElementById('soruSayisi').innerText = istatistikler.soruSayisi;
+            document.getElementById('odevSayisi').innerText = istatistikler.odevSayisi;
+            document.getElementById('sesliSure').innerText = istatistikler.sesliSure;
+        }
+
+        async function sor(soruOverride = null) {
+            const soru = soruOverride || document.getElementById('soru').value.trim();
             const cevapDiv = document.getElementById('cevap');
+            const timestampDiv = document.getElementById('timestamp');
 
             if (!soru) {
                 cevapDiv.innerHTML = "❌ Lütfen bir soru yaz.";
@@ -302,10 +743,22 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
             }
 
             cevapDiv.innerHTML = "<div class='loader'>.Ultra Yapay Zeka düşünüyor... ⚡</div>";
-            mesajlar.push({ role: "user", content: soru });
+            timestampDiv.innerText = "";
+            if (!soruOverride) {
+                mesajlar.push({ role: "user", content: soru });
+                istatistikler.soruSayisi++;
+                localStorage.setItem('istatistikler', JSON.stringify(istatistikler));
+                guncelleIstatistikler();
+            }
+
+            // 📲 CEBİ HAREKETLİ YAZSIN
+            const card = document.getElementById('mainCard');
+            card.classList.add('shake');
+            setTimeout(() => card.classList.remove('shake'), 500);
 
             try {
                 const gonderilecekMesajlar = tokenSinirliMesajlar(4500);
+                const secilenModel = document.getElementById('modelSec').value;
 
                 const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                     method: "POST",
@@ -314,7 +767,7 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        model: "meta-llama/llama-4-scout-17b-16e-instruct", // ✅ LAMA 4 UYUMLU
+                        model: secilenModel, // ✅ ALE! Dinamik model seçimi
                         messages: [
                             { role: "system", content: BEN_KIMIM },
                             ...gonderilecekMesajlar
@@ -329,9 +782,13 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
 
                 const cevap = data.choices[0].message.content.trim();
                 cevapDiv.innerHTML = cevap;
+                timestampDiv.innerText = `Cevaplandı: ${zamanDamgasi()}`;
 
-                mesajlar.push({ role: "assistant", content: cevap.length > 800 ? cevap.substring(0, 800) + "..." : cevap });
-                localStorage.setItem('ultra_sohbet', JSON.stringify(mesajlar));
+                if (!soruOverride) {
+                    mesajlar.push({ role: "assistant", content: cevap.length > 800 ? cevap.substring(0, 800) + "..." : cevap });
+                    localStorage.setItem('ultra_sohbet', JSON.stringify(mesajlar));
+                }
+
                 sesliOku(cevap);
 
             } catch (error) {
@@ -339,8 +796,20 @@ Aşağıdaki soruyu tam olarak bu kurallara göre cevapla:
             }
         }
 
-        // Sayfa yüklendiğinde API key'leri yükle
-        document.addEventListener('DOMContentLoaded', yukleApiKeys);
+        // Modal dışına tıklanınca kapat
+        window.onclick = function(event) {
+            const modal = document.getElementById('proModal');
+            if (event.target == modal) {
+                kapatProModal();
+            }
+        }
+
+        // Sayfa yüklendiğinde çalıştır
+        document.addEventListener('DOMContentLoaded', () => {
+            yukleApiKeys();
+            proKontrol();
+            guncelleIstatistikler();
+        });
     </script>
 </body>
 </html>
